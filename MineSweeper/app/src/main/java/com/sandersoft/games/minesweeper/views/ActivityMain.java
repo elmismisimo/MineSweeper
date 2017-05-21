@@ -18,7 +18,7 @@ public class ActivityMain extends AppCompatActivity {
 
         if (null == savedInstanceState) {
             //place the fragment in the container
-            fragmentMain = FragmentMain.getInstance(20,20);
+            fragmentMain = FragmentMain.getInstance(50, 20,20);
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.replace(R.id.main_fragment, fragmentMain, Globals.MAIN_FRAGMENT);
             ft.commit();
