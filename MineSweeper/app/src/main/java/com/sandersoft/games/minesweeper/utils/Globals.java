@@ -5,6 +5,7 @@ package com.sandersoft.games.minesweeper.utils;
  */
 
 public class Globals {
+    public final static String SOUND = "Sound";
     public final static String THEME_LIGHT = "ThemeLight";
 
     public final static String MAIN_FRAGMENT = "MainFragment";

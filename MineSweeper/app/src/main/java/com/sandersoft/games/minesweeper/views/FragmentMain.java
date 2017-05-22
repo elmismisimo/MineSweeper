@@ -1,15 +1,20 @@
 package com.sandersoft.games.minesweeper.views;
 
+import android.app.Dialog;
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,7 +36,7 @@ public class FragmentMain extends Fragment {
     BoardController controller;
 
     TextView lbl_mines;
-    TextView lbl_time;
+    public TextView lbl_time;
     HorizontalScrollView scr_board;
     RecyclerView board;
     public CellsAdapter cellsAdapter;
@@ -44,7 +49,7 @@ public class FragmentMain extends Fragment {
         frag.controller.setCols(cols);
         frag.controller.setRows(rows);
         frag.controller.setMines(mines);
-        frag.controller.createBoard();
+        frag.controller.startBoard();
         return frag;
     }
 
@@ -186,8 +191,10 @@ public class FragmentMain extends Fragment {
                 ih.lay_item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (controller.openCell(position))
+                        if (!controller.isGameOver() && controller.openCell(position))
                             openGameOver();
+                        else if (controller.verifyGameCompleted())
+                            ((ActivityMain)getActivity()).openDialogCompleted();
                     }
                 });
                 ih.lay_item.setOnLongClickListener(new View.OnLongClickListener() {
@@ -227,8 +234,10 @@ public class FragmentMain extends Fragment {
                     ih.lay_item.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View v) {
-                            if (controller.openRelatedOpenCells(position))
+                            if (!controller.isGameOver() && controller.openRelatedOpenCells(position))
                                 openGameOver();
+                            else if (controller.verifyGameCompleted())
+                                ((ActivityMain)getActivity()).openDialogCompleted();
                             return true;
                         }
                     });
@@ -295,4 +304,5 @@ public class FragmentMain extends Fragment {
         toast.setView(layout);
         toast.show();
     }
+
 }

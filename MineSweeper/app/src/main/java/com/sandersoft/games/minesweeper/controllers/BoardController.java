@@ -34,6 +34,13 @@ public class BoardController implements Parcelable {
         this.view = view;
     }
 
+    public void startBoard(){
+        ini_date = Calendar.getInstance();
+        boardDefined = false;
+        gameOver = false;
+        cells.clear();
+        createBoard();
+    }
     public void createBoard(){
         for (int i = 0; i < cols * rows; i++)
             cells.add(new Cell(0, false));
@@ -56,14 +63,14 @@ public class BoardController implements Parcelable {
             int y = i / cols;
             y--;
             p = i - cols - 1; //upleft
-            count += p > 0 && p / cols == y && cells.get(p).isMine() ? 1 : 0;
+            count += p >= 0 && p / cols == y && cells.get(p).isMine() ? 1 : 0;
             p++; //up
-            count += p > 0 && p / cols == y && cells.get(p).isMine() ? 1 : 0;
+            count += p >= 0 && p / cols == y && cells.get(p).isMine() ? 1 : 0;
             p++; //upright
-            count += p > 0 && p / cols == y && cells.get(p).isMine() ? 1 : 0;
+            count += p >= 0 && p / cols == y && cells.get(p).isMine() ? 1 : 0;
             y++;
             p = i - 1; //left
-            count += p > 0 && p / cols == y && cells.get(p).isMine() ? 1 : 0;
+            count += p >= 0 && p / cols == y && cells.get(p).isMine() ? 1 : 0;
             p = i + 1; //right
             count += p < cells.size() && p / cols == y && cells.get(p).isMine() ? 1 : 0;
             y++;
@@ -139,7 +146,7 @@ public class BoardController implements Parcelable {
         openCellAround(p, y);
     }
     void openCellAround(int p, int y){
-        if (p > 0 && p < cells.size() && p / cols == y
+        if (p >= 0 && p < cells.size() && p / cols == y
                 && !cells.get(p).isOpened() && !cells.get(p).isMarked()) {
             gameOver = cells.get(p).openCell();
             if (cells.get(p).getNumber() == 0)
@@ -152,6 +159,17 @@ public class BoardController implements Parcelable {
         for (Cell c : cells)
             n += c.isMarked() ? 1 : 0;
         return n;
+    }
+
+    public boolean verifyGameCompleted(){
+        for (Cell c : cells)
+            if (!c.isOpened() && !c.isMine()) return false;
+        for (Cell c : cells)
+            if (c.isMine() && !c.isMarked()) c.toogleMark();
+        view.cellsAdapter.notifyData();
+        view.updateTopBar();
+        gameOver = true;
+        return true;
     }
 
     public ArrayList<Cell> getCells(){
