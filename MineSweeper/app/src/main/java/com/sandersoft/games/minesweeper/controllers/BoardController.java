@@ -7,6 +7,7 @@ import com.sandersoft.games.minesweeper.models.Cell;
 import com.sandersoft.games.minesweeper.views.FragmentMain;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
 /**
@@ -21,6 +22,7 @@ public class BoardController implements Parcelable {
     int cols = 0;
     int rows = 0;
     int mines = 0;
+    Calendar ini_date = Calendar.getInstance();
 
     boolean boardDefined = false;
     boolean gameOver = false;
@@ -51,38 +53,51 @@ public class BoardController implements Parcelable {
         //adjust the numbers
         for (i = 0; i < cells.size(); i++){
             int count = 0;
+            int y = i / cols;
+            y--;
             p = i - cols - 1; //upleft
-            count += p > 0 && cells.get(p).isMine() ? 1 : 0;
+            count += p > 0 && p / cols == y && cells.get(p).isMine() ? 1 : 0;
             p++; //up
-            count += p > 0 && cells.get(p).isMine() ? 1 : 0;
+            count += p > 0 && p / cols == y && cells.get(p).isMine() ? 1 : 0;
             p++; //upright
-            count += p > 0 && cells.get(p).isMine() ? 1 : 0;
+            count += p > 0 && p / cols == y && cells.get(p).isMine() ? 1 : 0;
+            y++;
             p = i - 1; //left
-            count += p > 0 && cells.get(p).isMine() ? 1 : 0;
+            count += p > 0 && p / cols == y && cells.get(p).isMine() ? 1 : 0;
             p = i + 1; //right
-            count += p < cells.size() && cells.get(p).isMine() ? 1 : 0;
+            count += p < cells.size() && p / cols == y && cells.get(p).isMine() ? 1 : 0;
+            y++;
             p = i + cols - 1; //down left
-            count += p < cells.size() && cells.get(p).isMine() ? 1 : 0;
+            count += p < cells.size() && p / cols == y && cells.get(p).isMine() ? 1 : 0;
             p++; //down
-            count += p < cells.size() && cells.get(p).isMine() ? 1 : 0;
+            count += p < cells.size() && p / cols == y && cells.get(p).isMine() ? 1 : 0;
             p++; //down right
-            count += p < cells.size() && cells.get(p).isMine() ? 1 : 0;
+            count += p < cells.size() && p / cols == y && cells.get(p).isMine() ? 1 : 0;
             cells.get(i).setNumber(count);
         }
         //mark the baord as constructed
         boardDefined = true;
     }
 
-    public void openCell(int position){
+    public boolean openCell(int position){
         //if gameover, do nothing
-        if (gameOver) return;
+        if (gameOver) return gameOver;
         //if the board is not defined yet, construct it
         if (!boardDefined)
             defineBoard(position);
-        //open location and checl if gameover
+        //open location and check if gameover
         gameOver = cells.get(position).openCell();
-        //notify cells changed
-        view.cellsAdapter.notifyData(); //.notifyItemChanged(position);
+        //checl if cell is 0
+        if (!gameOver && cells.get(position).getNumber() == 0){
+            //open all cells around this one
+            openCellsAround(position);
+            //notify cells changed
+            view.cellsAdapter.notifyData(); //.notifyItemChanged(position);
+        } else {
+            //notify cells changed
+            view.cellsAdapter.notifyItemChanged(position);
+        }
+        return gameOver;
     }
     public void markCell(int position){
         //if gameover, do nothing
@@ -91,6 +106,52 @@ public class BoardController implements Parcelable {
         cells.get(position).toogleMark();
         //notify cell changed
         view.cellsAdapter.notifyItemChanged(position);
+    }
+    public boolean openRelatedOpenCells(int position){
+        //if gameover, do nothing
+        if (gameOver) return gameOver;
+        openCellsAround(position);
+        //notify cells changed
+        view.cellsAdapter.notifyData(); //.notifyItemChanged(position);
+        return gameOver;
+    }
+
+    void openCellsAround(int position){
+        int y = position / cols;
+        y--;
+        int p = position - cols - 1; //upleft
+        openCellAround(p, y);
+        p++; //up
+        openCellAround(p, y);
+        p++; //upright
+        openCellAround(p, y);
+        y++;
+        p = position - 1; //left
+        openCellAround(p, y);
+        p = position + 1; //right
+        openCellAround(p, y);
+        y++;
+        p = position + cols - 1; //down left
+        openCellAround(p, y);
+        p++; //down
+        openCellAround(p, y);
+        p++; //down right
+        openCellAround(p, y);
+    }
+    void openCellAround(int p, int y){
+        if (p > 0 && p < cells.size() && p / cols == y
+                && !cells.get(p).isOpened() && !cells.get(p).isMarked()) {
+            gameOver = cells.get(p).openCell();
+            if (cells.get(p).getNumber() == 0)
+                openCellsAround(p);
+        }
+    }
+
+    public int getMarkedCells(){
+        int n = 0;
+        for (Cell c : cells)
+            n += c.isMarked() ? 1 : 0;
+        return n;
     }
 
     public ArrayList<Cell> getCells(){
@@ -115,6 +176,12 @@ public class BoardController implements Parcelable {
     public void setMines(int mines) {
         this.mines = mines;
     }
+    public Calendar getIni_date() {
+        return ini_date;
+    }
+    public boolean isGameOver() {
+        return gameOver;
+    }
 
     // Parcelling part
     public BoardController(Parcel in){
@@ -124,6 +191,7 @@ public class BoardController implements Parcelable {
         mines = in.readInt();
         boardDefined = in.readInt() == 1;
         gameOver = in.readInt() == 1;
+        ini_date.setTimeInMillis(in.readLong());
     }
     @Override
     public int describeContents() {
@@ -137,6 +205,7 @@ public class BoardController implements Parcelable {
         dest.writeInt(mines);
         dest.writeInt(boardDefined ? 1 : 0);
         dest.writeInt(gameOver ? 1 : 0);
+        dest.writeLong(ini_date.getTimeInMillis());
     }
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public BoardController createFromParcel(Parcel in) {

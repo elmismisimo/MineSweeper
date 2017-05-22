@@ -3,19 +3,24 @@ package com.sandersoft.games.minesweeper.views;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sandersoft.games.minesweeper.R;
 import com.sandersoft.games.minesweeper.controllers.BoardController;
 import com.sandersoft.games.minesweeper.models.Cell;
 import com.sandersoft.games.minesweeper.utils.Globals;
+
+import java.util.Calendar;
 
 /**
  * Created by Sander on 21/05/2017.
@@ -25,6 +30,8 @@ public class FragmentMain extends Fragment {
 
     BoardController controller;
 
+    TextView lbl_mines;
+    TextView lbl_time;
     HorizontalScrollView scr_board;
     RecyclerView board;
     public CellsAdapter cellsAdapter;
@@ -72,6 +79,9 @@ public class FragmentMain extends Fragment {
     }
 
     public void defineElements(View rootview){
+        lbl_mines = (TextView) rootview.findViewById(R.id.lbl_mines);
+        lbl_time = (TextView) rootview.findViewById(R.id.lbl_time);
+        updateTopBar();
         scr_board = (HorizontalScrollView) rootview.findViewById(R.id.scr_board);
         board = (RecyclerView) rootview.findViewById(R.id.board);
         cellsAdapter = new CellsAdapter();
@@ -176,13 +186,15 @@ public class FragmentMain extends Fragment {
                 ih.lay_item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        controller.openCell(position);
+                        if (controller.openCell(position))
+                            openGameOver();
                     }
                 });
                 ih.lay_item.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
                         controller.markCell(position);
+                        updateTopBar();
                         return true;
                     }
                 });
@@ -196,6 +208,7 @@ public class FragmentMain extends Fragment {
                     @Override
                     public boolean onLongClick(View v) {
                         controller.markCell(position);
+                        updateTopBar();
                         return true;
                     }
                 });
@@ -206,7 +219,20 @@ public class FragmentMain extends Fragment {
                 //cast the item holder
                 final ItemCellOpenedHolder ih = (ItemCellOpenedHolder) holder;
                 //place values
-                ih.lbl_number.setText(String.valueOf(c.getNumber()));
+                ih.lbl_number.setText(c.getNumber() > 0 ? String.valueOf(c.getNumber()) : "");
+                if (c.getNumber() <= 0) {
+                    ih.lay_item.setBackgroundResource(0);
+                } else {
+                    ih.lay_item.setBackgroundResource(R.drawable.cell_opened);
+                    ih.lay_item.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            if (controller.openRelatedOpenCells(position))
+                                openGameOver();
+                            return true;
+                        }
+                    });
+                }
             }
             else if (holder instanceof ItemCellGameOverHolder){
                 //reference the cell
@@ -231,4 +257,42 @@ public class FragmentMain extends Fragment {
         }
     }
 
+    public void updateTopBar(){
+        try {
+            lbl_mines.setText(String.valueOf(controller.getMines() - controller.getMarkedCells()));
+            updateTopBarTime();
+        } catch (Exception ex){}
+    }
+    public void updateTopBarTime(){
+        Calendar now = Calendar.getInstance();
+        long dif = now.getTimeInMillis() - controller.getIni_date().getTimeInMillis();
+        long seconds = dif / 1000;
+        lbl_time.setText(formatTime(seconds));
+    }
+    public String formatTime(long seconds){
+        long hours = 0;
+        long minutes = 0;
+        if (seconds > 60){
+            minutes = seconds / 60;
+            seconds %= 60;
+        }
+        if (minutes > 60){
+            hours = minutes / 60;
+            minutes %= 60;
+        }
+        return (hours > 0 ? hours + ":" : "") + (hours > 0 ? String.format("%02d", minutes) : minutes) +
+                ":" + String.format("%02d", seconds);
+    }
+
+    public void openGameOver(){
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast_gameover,
+                (ViewGroup) getActivity().findViewById(R.id.toast_container));
+
+        Toast toast = new Toast(getActivity());
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
+    }
 }

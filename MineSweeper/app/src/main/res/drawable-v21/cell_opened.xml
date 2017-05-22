@@ -4,7 +4,7 @@
     >
     <item>
         <shape>
-            <solid android:color="@color/cell_selector"/>
+            <solid android:color="@color/cell_opened_selector"/>
             <corners android:radius="5dip"/>
         </shape>
     </item>

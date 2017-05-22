@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/color_Accent</item>
         <item name="colorControlHighlight">@color/color_Primary</item>
         <item name="android:windowBackground">@color/color_Background</item>
+        <item name="android:navigationBarColor">@color/color_Background</item>
 
         <item name="mcolorPrimary">@color/color_Primary</item>
         <item name="mcolorPrimaryDark">@color/color_PrimaryDark</item>
@@ -29,6 +30,7 @@
         <item name="colorAccent">@color/color_LAccent</item>
         <item name="colorControlHighlight">@color/color_LPrimary</item>
         <item name="android:windowBackground">@color/color_LBackground</item>
+        <item name="android:navigationBarColor">@color/color_LBackground</item>
 
         <item name="mcolorPrimary">@color/color_LPrimary</item>
         <item name="mcolorPrimaryDark">@color/color_LPrimaryDark</item>
