@@ -4,4 +4,20 @@
     <string name="mines">Mines</string>
     <string name="time">Time</string>
     <string name="game_over">Game Over</string>
+
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
+    <string name="sound">Sound</string>
+    <string name="light">Light Theme</string>
+    <string name="dark">Dark Theme</string>
+    <string name="restart">Restart</string>
+    <string name="restart_confirm">Are you sure you want to restart? The mine positions will change</string>
+    <string name="quit">Quit</string>
+    <string name="quit_confirm">Are you sure you want to quit?</string>
+    <string name="settings">Settings</string>
+
+    <string name="congrats">Congratulations!</string>
+    <string name="completed">You completed the XXX board in YYY</string>
+    <string name="new_game">New Game</string>
+
 </resources>
