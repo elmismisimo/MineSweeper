@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="mcolorPrimary" format="color|reference" />
+    <attr name="mcolorPrimaryDark" format="color|reference" />
+    <attr name="mcolorAccent" format="color|reference" />
+    <attr name="colorText" format="color|reference" />
+    <attr name="colorBackground" format="color|reference" />
+    <attr name="colorMarked" format="color|reference" />
+    <attr name="colorGameOver" format="color|reference" />
+</resources>
