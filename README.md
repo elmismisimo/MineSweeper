@@ -13,3 +13,5 @@ Using Android Studio 2.3
 6:10pm -> Working of cells and cell functions
 
 10:44pm -> Board full functionality, Multi theme is prepared, and top bar updates with mines left and time of playing
+
+12:47am (next day) -> Game screen fully functional Yeah!

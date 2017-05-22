@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.sandersoft.games.minesweeper.models.Cell;
-import com.sandersoft.games.minesweeper.views.FragmentMain;
+import com.sandersoft.games.minesweeper.views.FragmentGame;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,7 +16,7 @@ import java.util.Random;
 
 public class BoardController implements Parcelable {
 
-    FragmentMain view;
+    FragmentGame view;
 
     ArrayList<Cell> cells = new ArrayList<>();
     int cols = 0;
@@ -27,10 +27,10 @@ public class BoardController implements Parcelable {
     boolean boardDefined = false;
     boolean gameOver = false;
 
-    public BoardController(FragmentMain view){
+    public BoardController(FragmentGame view){
         setView(view);
     }
-    public void setView(FragmentMain view){
+    public void setView(FragmentGame view){
         this.view = view;
     }
 
@@ -93,7 +93,7 @@ public class BoardController implements Parcelable {
         if (!boardDefined)
             defineBoard(position);
         //open location and check if gameover
-        gameOver = cells.get(position).openCell();
+        gameOver |= cells.get(position).openCell();
         //checl if cell is 0
         if (!gameOver && cells.get(position).getNumber() == 0){
             //open all cells around this one
@@ -148,8 +148,8 @@ public class BoardController implements Parcelable {
     void openCellAround(int p, int y){
         if (p >= 0 && p < cells.size() && p / cols == y
                 && !cells.get(p).isOpened() && !cells.get(p).isMarked()) {
-            gameOver = cells.get(p).openCell();
-            if (cells.get(p).getNumber() == 0)
+            gameOver |= cells.get(p).openCell();
+            if (!cells.get(p).isMine() && cells.get(p).getNumber() == 0)
                 openCellsAround(p);
         }
     }

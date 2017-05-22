@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorBackground"
+    android:gravity="center"
+    android:padding="5dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/custom"
+                android:textSize="12pt"
+                android:textColor="?colorText"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/custom_desc"
+                android:textColor="?colorText"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/cols"
+                    android:textSize="9pt"
+                    android:textColor="?colorText"
+                    android:gravity="right"
+                    android:layout_marginRight="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical|left">
+
+                    <EditText
+                        android:id="@+id/fld_cols"
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:background="?colorText"
+                        android:textColor="?colorBackground"
+                        android:inputType="number"
+                        android:gravity="center"
+                        android:text="8"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/rows"
+                    android:textSize="9pt"
+                    android:textColor="?colorText"
+                    android:gravity="right"
+                    android:layout_marginRight="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical|left">
+
+                    <EditText
+                        android:id="@+id/fld_rows"
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:background="?colorText"
+                        android:textColor="?colorBackground"
+                        android:inputType="number"
+                        android:gravity="center"
+                        android:text="6"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/mines"
+                    android:textSize="9pt"
+                    android:textColor="?colorText"
+                    android:gravity="right"
+                    android:layout_marginRight="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical|left">
+
+                    <EditText
+                        android:id="@+id/fld_mines"
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:background="?colorText"
+                        android:textColor="?colorBackground"
+                        android:inputType="number"
+                        android:gravity="center"
+                        android:text="15"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_play_custom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/cell"
+                android:text="@string/play"
+                android:textColor="?colorText"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
