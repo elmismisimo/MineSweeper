@@ -11,3 +11,5 @@ Using Android Studio 2.3
 2:30pm -> First files uploaded
 
 6:10pm -> Working of cells and cell functions
+
+10:44pm -> Board full functionality, Multi theme is prepared, and top bar updates with mines left and time of playing
