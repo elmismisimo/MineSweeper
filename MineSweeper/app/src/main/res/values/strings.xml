@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">Mine Sweeper</string>
+    <string name="app_name_by">by SanderSoft</string>
+
+    <string name="play">Play</string>
+    <string name="easy">Easy 6x6</string>
+    <string name="medium">Medium 10x10</string>
+    <string name="hard">Hard 20x20</string>
+    <string name="custom">Custom</string>
+    <string name="custom_desc">Provide the columns, rows and mines</string>
+    <string name="cols">Columns</string>
+    <string name="rows">Rows</string>
 
     <string name="mines">Mines</string>
     <string name="time">Time</string>
@@ -8,8 +18,8 @@
     <string name="on">ON</string>
     <string name="off">OFF</string>
     <string name="sound">Sound</string>
-    <string name="light">Light Theme</string>
-    <string name="dark">Dark Theme</string>
+    <string name="light">Switch to Dark Theme</string>
+    <string name="dark">Switch to Light Theme</string>
     <string name="restart">Restart</string>
     <string name="restart_confirm">Are you sure you want to restart? The mine positions will change</string>
     <string name="quit">Quit</string>
@@ -19,5 +29,8 @@
     <string name="congrats">Congratulations!</string>
     <string name="completed">You completed the XXX board in YYY</string>
     <string name="new_game">New Game</string>
+
+    <string name="about">Created and Developed by</string>
+    <string name="version">Version:</string>
 
 </resources>

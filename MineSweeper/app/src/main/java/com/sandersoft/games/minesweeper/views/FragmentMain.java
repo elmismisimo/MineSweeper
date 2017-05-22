@@ -1,55 +1,51 @@
 package com.sandersoft.games.minesweeper.views;
 
-import android.app.Dialog;
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringDef;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.sandersoft.games.minesweeper.R;
-import com.sandersoft.games.minesweeper.controllers.BoardController;
-import com.sandersoft.games.minesweeper.models.Cell;
 import com.sandersoft.games.minesweeper.utils.Globals;
 
-import java.util.Calendar;
-
 /**
- * Created by Sander on 21/05/2017.
+ * Created by Sander on 22/05/2017.
  */
 
 public class FragmentMain extends Fragment {
 
-    BoardController controller;
-
-    TextView lbl_mines;
-    public TextView lbl_time;
-    HorizontalScrollView scr_board;
-    RecyclerView board;
-    public CellsAdapter cellsAdapter;
-
     public FragmentMain(){}
 
-    public static FragmentMain getInstance(int mines, int cols, int rows){
+    ViewFlipper sld_main;
+    Button btn_play;
+    Button btn_settings;
+    ImageView img_sandersoft;
+    Button btn_sound;
+    Button btn_theme;
+    Button btn_easy;
+    Button btn_medium;
+    Button btn_hard;
+    Button btn_custom;
+    EditText fld_cols;
+    EditText fld_rows;
+    EditText fld_mines;
+    Button btn_play_custom;
+    TextView lbl_version;
+
+    int pos = 0;
+
+    public static FragmentMain getInstance(){
         FragmentMain frag = new FragmentMain();
-        frag.controller = new BoardController(frag);
-        frag.controller.setCols(cols);
-        frag.controller.setRows(rows);
-        frag.controller.setMines(mines);
-        frag.controller.startBoard();
         return frag;
     }
 
@@ -59,17 +55,11 @@ public class FragmentMain extends Fragment {
         View rootview = inflater.inflate(R.layout.fragment_main, container, false);
 
         if (null != savedInstanceState){
-            controller = savedInstanceState.getParcelable(Globals.MAIN_CONTROLLER);
-            controller.setView(this);
+            pos = savedInstanceState.getInt(Globals.MAIN_POS);
         }
 
         //instantiates the views of the layout
         defineElements(rootview);
-
-        if (null != savedInstanceState) {
-            int[] arr = savedInstanceState.getIntArray(Globals.MAIN_SCROLL);
-            scr_board.scrollTo(arr[0], arr[1]);
-        }
 
         return rootview;
     }
@@ -78,231 +68,211 @@ public class FragmentMain extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         //get objects backedup so we can reload the activity with the same infromation
-        outState.putParcelable(Globals.MAIN_CONTROLLER, controller);
-        outState.putIntArray(Globals.MAIN_SCROLL,
-                new int[] {scr_board.getScrollX(), scr_board.getScrollY()});
+        outState.putInt(Globals.MAIN_POS, pos);
     }
 
     public void defineElements(View rootview){
-        lbl_mines = (TextView) rootview.findViewById(R.id.lbl_mines);
-        lbl_time = (TextView) rootview.findViewById(R.id.lbl_time);
-        updateTopBar();
-        scr_board = (HorizontalScrollView) rootview.findViewById(R.id.scr_board);
-        board = (RecyclerView) rootview.findViewById(R.id.board);
-        cellsAdapter = new CellsAdapter();
-        GridLayoutManager gridLayout = new GridLayoutManager(getActivity(), controller.getCols());
-        board.setLayoutManager(gridLayout);
-        board.setAdapter(cellsAdapter);
+        sld_main = (ViewFlipper) rootview.findViewById(R.id.sld_main);
+        btn_play = (Button) rootview.findViewById(R.id.btn_play);
+        btn_settings = (Button) rootview.findViewById(R.id.btn_settings);
+        img_sandersoft = (ImageView) rootview.findViewById(R.id.img_sandersoft);
+        btn_sound = (Button) rootview.findViewById(R.id.btn_sound);
+        btn_theme = (Button) rootview.findViewById(R.id.btn_theme);
+        btn_easy = (Button) rootview.findViewById(R.id.btn_easy);
+        btn_medium = (Button) rootview.findViewById(R.id.btn_medium);
+        btn_hard = (Button) rootview.findViewById(R.id.btn_hard);
+        btn_custom = (Button) rootview.findViewById(R.id.btn_custom);
+        fld_cols = (EditText) rootview.findViewById(R.id.fld_cols);
+        fld_rows = (EditText) rootview.findViewById(R.id.fld_rows);
+        fld_mines = (EditText) rootview.findViewById(R.id.fld_mines);
+        btn_play_custom = (Button) rootview.findViewById(R.id.btn_play_custom);
+        lbl_version = (TextView) rootview.findViewById(R.id.lbl_version);
+
+        updateSoundButton();
+        updateThemeButton();
+        lbl_version.setText(getVersion());
+        sld_main.setDisplayedChild(pos);
+
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        //set listeners
+        btn_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moveToPlay();
+            }
+        });
+        btn_easy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                play(0);
+            }
+        });
+        btn_medium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                play(1);
+            }
+        });
+        btn_hard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                play(2);
+            }
+        });
+        btn_custom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moveToCustom();
+            }
+        });
+        btn_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moveToSettings();
+            }
+        });
+        btn_sound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                preferences.edit().putBoolean(Globals.SOUND, !preferences.getBoolean(Globals.SOUND, false)).apply();
+                updateSoundButton();
+            }
+        });
+        btn_theme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                preferences.edit().putBoolean(Globals.THEME_LIGHT, !preferences.getBoolean(Globals.THEME_LIGHT, false)).apply();
+                updateThemeButton();
+                getActivity().recreate();
+            }
+        });
+        btn_play_custom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String cols = fld_cols.getText().toString().trim();
+                String rows = fld_rows.getText().toString().trim();
+                String mines = fld_mines.getText().toString().trim();
+                play(Integer.valueOf(cols.length() > 0 ? cols : "0"),
+                        Integer.valueOf(rows.length() > 0 ? rows : "0"),
+                        Integer.valueOf(mines.length() > 0 ? mines : "0"));
+            }
+        });
+        img_sandersoft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moveToAbout();
+            }
+        });
+    }
+    public void updateSoundButton(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String sound = getString(R.string.sound) + " " + getString(preferences.getBoolean(Globals.SOUND, false) ? R.string.on : R.string.off);
+        btn_sound.setText(sound);
+    }
+    public void updateThemeButton(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        btn_theme.setText(preferences.getBoolean(Globals.THEME_LIGHT, false) ? R.string.light : R.string.dark);
     }
 
-    public class CellsAdapter extends RecyclerView.Adapter {
-        private final int VIEW_TYPE_CELL = 0;
-        private final int VIEW_TYPE_CELL_MARKED = 1;
-        private final int VIEW_TYPE_CELL_OPENED = 2;
-        private final int VIEW_TYPE_CELL_GAMEOVER = 3;
-
-        public CellsAdapter(){
-            setHasStableIds(true);
+    public void moveToMain(){
+        if (pos == 0) return;
+        if (pos > 0) {
+            sld_main.setInAnimation(getActivity(), R.anim.animation_in_right);
+            sld_main.setOutAnimation(getActivity(), R.anim.animation_out_right);
+        } else {
+            sld_main.setInAnimation(getActivity(), R.anim.animation_in_left);
+            sld_main.setOutAnimation(getActivity(), R.anim.animation_out_left);
         }
-
-
-        public class ItemCellHolder extends RecyclerView.ViewHolder {
-            public LinearLayout lay_item;
-
-            public ItemCellHolder(View view) {
-                super(view);
-                lay_item = (LinearLayout) view.findViewById(R.id.lay_item);
-            }
+        pos = 0;
+        sld_main.setDisplayedChild(pos);
+    }
+    public void moveToSettings(){
+        if (pos == 1) return;
+        if (pos > 1) {
+            sld_main.setInAnimation(getActivity(), R.anim.animation_in_right);
+            sld_main.setOutAnimation(getActivity(), R.anim.animation_out_right);
+        } else {
+            sld_main.setInAnimation(getActivity(), R.anim.animation_in_left);
+            sld_main.setOutAnimation(getActivity(), R.anim.animation_out_left);
         }
-        public class ItemCellMarkedHolder extends RecyclerView.ViewHolder {
-            public LinearLayout lay_item;
-
-            public ItemCellMarkedHolder(View view) {
-                super(view);
-                lay_item = (LinearLayout) view.findViewById(R.id.lay_item);
-            }
+        pos = 1;
+        sld_main.setDisplayedChild(pos);
+    }
+    public void moveToAbout(){
+        if (pos == 4) return;
+        if (pos > 4) {
+            sld_main.setInAnimation(getActivity(), R.anim.animation_in_right);
+            sld_main.setOutAnimation(getActivity(), R.anim.animation_out_right);
+        } else {
+            sld_main.setInAnimation(getActivity(), R.anim.animation_in_left);
+            sld_main.setOutAnimation(getActivity(), R.anim.animation_out_left);
         }
-        public class ItemCellOpenedHolder extends RecyclerView.ViewHolder {
-            public LinearLayout lay_item;
-            public TextView lbl_number;
-
-            public ItemCellOpenedHolder(View view) {
-                super(view);
-                lay_item = (LinearLayout) view.findViewById(R.id.lay_item);
-                lbl_number = (TextView) view.findViewById(R.id.lbl_number);
-            }
+        pos = 4;
+        sld_main.setDisplayedChild(pos);
+    }
+    public void moveToPlay(){
+        if (pos == 2) return;
+        if (pos > 2) {
+            sld_main.setInAnimation(getActivity(), R.anim.animation_in_right);
+            sld_main.setOutAnimation(getActivity(), R.anim.animation_out_right);
+        } else {
+            sld_main.setInAnimation(getActivity(), R.anim.animation_in_left);
+            sld_main.setOutAnimation(getActivity(), R.anim.animation_out_left);
         }
-        public class ItemCellGameOverHolder extends RecyclerView.ViewHolder {
-            public LinearLayout lay_item;
-
-            public ItemCellGameOverHolder(View view) {
-                super(view);
-                lay_item = (LinearLayout) view.findViewById(R.id.lay_item);
-            }
+        pos = 2;
+        sld_main.setDisplayedChild(pos);
+    }
+    public void moveToCustom(){
+        if (pos == 3) return;
+        if (pos > 3) {
+            sld_main.setInAnimation(getActivity(), R.anim.animation_in_right);
+            sld_main.setOutAnimation(getActivity(), R.anim.animation_out_right);
+        } else {
+            sld_main.setInAnimation(getActivity(), R.anim.animation_in_left);
+            sld_main.setOutAnimation(getActivity(), R.anim.animation_out_left);
         }
-
-        @Override
-        public int getItemViewType(int position) {
-            if (controller.getCells().get(position).isOpened()) {
-                if (controller.getCells().get(position).isMine())
-                    return VIEW_TYPE_CELL_GAMEOVER; //gameover cell element
-                else
-                    return VIEW_TYPE_CELL_OPENED; //opened cell element
-            } else if (controller.getCells().get(position).isMarked())
-                return VIEW_TYPE_CELL_MARKED; //marked cell element
-            else
-                return VIEW_TYPE_CELL; //cell element
-        }
-
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            if (viewType == VIEW_TYPE_CELL_OPENED){
-                View itemView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_cell_open, parent, false);
-                return new ItemCellOpenedHolder(itemView);
-            }
-            else if (viewType == VIEW_TYPE_CELL_MARKED){
-                View itemView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_cell_marked, parent, false);
-                return new ItemCellMarkedHolder(itemView);
-            }
-            else if (viewType == VIEW_TYPE_CELL){
-                View itemView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_cell, parent, false);
-                return new ItemCellHolder(itemView);
-            }
-            else if (viewType == VIEW_TYPE_CELL_GAMEOVER){
-                View itemView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_cell_gameover, parent, false);
-                return new ItemCellGameOverHolder(itemView);
-            }
-            return null;
-        }
-
-        @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-            //verify the element type
-            if (holder instanceof ItemCellHolder){
-                //reference the cell
-                final Cell c = controller.getCells().get(position);
-                //cast the item holder
-                final ItemCellHolder ih = (ItemCellHolder) holder;
-                //set listeners
-                ih.lay_item.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!controller.isGameOver() && controller.openCell(position))
-                            openGameOver();
-                        else if (controller.verifyGameCompleted())
-                            ((ActivityMain)getActivity()).openDialogCompleted();
-                    }
-                });
-                ih.lay_item.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        controller.markCell(position);
-                        updateTopBar();
-                        return true;
-                    }
-                });
-            }
-            else if (holder instanceof ItemCellMarkedHolder){
-                //reference the cell
-                final Cell c = controller.getCells().get(position);
-                //cast the item holder
-                final ItemCellMarkedHolder ih = (ItemCellMarkedHolder) holder;
-                ih.lay_item.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        controller.markCell(position);
-                        updateTopBar();
-                        return true;
-                    }
-                });
-            }
-            else if (holder instanceof ItemCellOpenedHolder){
-                //reference the cell
-                final Cell c = controller.getCells().get(position);
-                //cast the item holder
-                final ItemCellOpenedHolder ih = (ItemCellOpenedHolder) holder;
-                //place values
-                ih.lbl_number.setText(c.getNumber() > 0 ? String.valueOf(c.getNumber()) : "");
-                if (c.getNumber() <= 0) {
-                    ih.lay_item.setBackgroundResource(0);
-                } else {
-                    ih.lay_item.setBackgroundResource(R.drawable.cell_opened);
-                    ih.lay_item.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View v) {
-                            if (!controller.isGameOver() && controller.openRelatedOpenCells(position))
-                                openGameOver();
-                            else if (controller.verifyGameCompleted())
-                                ((ActivityMain)getActivity()).openDialogCompleted();
-                            return true;
-                        }
-                    });
-                }
-            }
-            else if (holder instanceof ItemCellGameOverHolder){
-                //reference the cell
-                final Cell c = controller.getCells().get(position);
-                //cast the item holder
-                final ItemCellGameOverHolder ih = (ItemCellGameOverHolder) holder;
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            return controller.getCells().size();
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        public void notifyData() {
-            notifyDataSetChanged();
-        }
+        pos = 3;
+        sld_main.setDisplayedChild(pos);
     }
 
-    public void updateTopBar(){
-        try {
-            lbl_mines.setText(String.valueOf(controller.getMines() - controller.getMarkedCells()));
-            updateTopBarTime();
-        } catch (Exception ex){}
+    public boolean onBackPressed(){
+        if (pos == 0)
+            return false;
+        if (pos == 1 || pos == 2 || pos == 4)
+            moveToMain();
+        else
+            moveToPlay();
+        return true;
     }
-    public void updateTopBarTime(){
-        Calendar now = Calendar.getInstance();
-        long dif = now.getTimeInMillis() - controller.getIni_date().getTimeInMillis();
-        long seconds = dif / 1000;
-        lbl_time.setText(formatTime(seconds));
+
+    public void play(int type){
+        if (type == 0) play(6,6,6);
+        if (type == 1) play(10,10,20);
+        if (type == 2) play(20,20,60);
     }
-    public String formatTime(long seconds){
-        long hours = 0;
-        long minutes = 0;
-        if (seconds > 60){
-            minutes = seconds / 60;
-            seconds %= 60;
+    public void play(int cols, int rows, int mines){
+        if (cols < 5) cols = 5;
+        if (rows < 5) rows = 5;
+        if (mines >= cols*rows) mines = cols*rows - 1;
+
+        Intent playIntent = new Intent(getActivity(), ActivityGame.class);
+        Bundle extras = new Bundle();
+        extras.putInt(Globals.MAIN_COLS, cols);
+        extras.putInt(Globals.MAIN_ROWS, rows);
+        extras.putInt(Globals.MAIN_MINES, mines);
+        playIntent.putExtras(extras);
+        startActivity(playIntent);
+    }
+
+    public String getVersion() {
+        try
+        {
+            return getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName;
         }
-        if (minutes > 60){
-            hours = minutes / 60;
-            minutes %= 60;
+        catch(Exception ex)
+        {
+            return "1.0.0";
         }
-        return (hours > 0 ? hours + ":" : "") + (hours > 0 ? String.format("%02d", minutes) : minutes) +
-                ":" + String.format("%02d", seconds);
     }
-
-    public void openGameOver(){
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View layout = inflater.inflate(R.layout.toast_gameover,
-                (ViewGroup) getActivity().findViewById(R.id.toast_container));
-
-        Toast toast = new Toast(getActivity());
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(layout);
-        toast.show();
-    }
-
 }
