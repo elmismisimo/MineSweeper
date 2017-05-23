@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.sandersoft.games.minesweeper.R;
+import com.sandersoft.games.minesweeper.SoundManager;
 import com.sandersoft.games.minesweeper.utils.Globals;
 
 /**
@@ -100,6 +101,7 @@ public class FragmentMain extends Fragment {
             @Override
             public void onClick(View view) {
                 moveToPlay();
+                SoundManager.playMenuIn(getActivity());
             }
         });
         btn_easy.setOnClickListener(new View.OnClickListener() {
@@ -124,19 +126,23 @@ public class FragmentMain extends Fragment {
             @Override
             public void onClick(View view) {
                 moveToCustom();
+                SoundManager.playMenuIn(getActivity());
             }
         });
         btn_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 moveToSettings();
+                SoundManager.playMenuIn(getActivity());
             }
         });
         btn_sound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                preferences.edit().putBoolean(Globals.SOUND, !preferences.getBoolean(Globals.SOUND, false)).apply();
+                preferences.edit().putBoolean(Globals.SOUND, !preferences.getBoolean(Globals.SOUND, true)).apply();
                 updateSoundButton();
+                SoundManager.playMenuIn(getActivity());
+
             }
         });
         btn_theme.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +150,7 @@ public class FragmentMain extends Fragment {
             public void onClick(View view) {
                 preferences.edit().putBoolean(Globals.THEME_LIGHT, !preferences.getBoolean(Globals.THEME_LIGHT, false)).apply();
                 updateThemeButton();
+                SoundManager.playMenuIn(getActivity());
                 getActivity().recreate();
             }
         });
@@ -153,7 +160,7 @@ public class FragmentMain extends Fragment {
                 String cols = fld_cols.getText().toString().trim();
                 String rows = fld_rows.getText().toString().trim();
                 String mines = fld_mines.getText().toString().trim();
-                play(Integer.valueOf(cols.length() > 0 ? cols : "0"),
+                play(-1, Integer.valueOf(cols.length() > 0 ? cols : "0"),
                         Integer.valueOf(rows.length() > 0 ? rows : "0"),
                         Integer.valueOf(mines.length() > 0 ? mines : "0"));
             }
@@ -162,12 +169,13 @@ public class FragmentMain extends Fragment {
             @Override
             public void onClick(View view) {
                 moveToAbout();
+                SoundManager.playMenuIn(getActivity());
             }
         });
     }
     public void updateSoundButton(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String sound = getString(R.string.sound) + " " + getString(preferences.getBoolean(Globals.SOUND, false) ? R.string.on : R.string.off);
+        String sound = getString(R.string.sound) + " " + getString(preferences.getBoolean(Globals.SOUND, true) ? R.string.on : R.string.off);
         btn_sound.setText(sound);
     }
     public void updateThemeButton(){
@@ -237,6 +245,7 @@ public class FragmentMain extends Fragment {
     }
 
     public boolean onBackPressed(){
+        SoundManager.playMenuOut(getActivity());
         if (pos == 0)
             return false;
         if (pos == 1 || pos == 2 || pos == 4)
@@ -247,22 +256,28 @@ public class FragmentMain extends Fragment {
     }
 
     public void play(int type){
-        if (type == 0) play(6,6,6);
-        if (type == 1) play(10,10,20);
-        if (type == 2) play(20,20,60);
+        if (type == 0) play(type, 6,6,6);
+        if (type == 1) play(type, 10,10,20);
+        if (type == 2) play(type, 20,20,60);
     }
-    public void play(int cols, int rows, int mines){
+    public void play(int type, int cols, int rows, int mines){
         if (cols < 5) cols = 5;
         if (rows < 5) rows = 5;
+        if (cols * rows > 1000){
+            cols = 20;
+            rows = 50;
+        }
         if (mines >= cols*rows) mines = cols*rows - 1;
 
         Intent playIntent = new Intent(getActivity(), ActivityGame.class);
         Bundle extras = new Bundle();
+        extras.putInt(Globals.MAIN_TYPE, type);
         extras.putInt(Globals.MAIN_COLS, cols);
         extras.putInt(Globals.MAIN_ROWS, rows);
         extras.putInt(Globals.MAIN_MINES, mines);
         playIntent.putExtras(extras);
         startActivity(playIntent);
+        SoundManager.playOpen(getActivity());
     }
 
     public String getVersion() {

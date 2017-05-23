@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sandersoft.games.minesweeper.R;
+import com.sandersoft.games.minesweeper.SoundManager;
 import com.sandersoft.games.minesweeper.controllers.BoardController;
 import com.sandersoft.games.minesweeper.models.Cell;
 import com.sandersoft.games.minesweeper.utils.Globals;
@@ -28,6 +29,7 @@ public class FragmentGame extends Fragment {
     BoardController controller;
 
     TextView lbl_mines;
+    TextView lbl_grid;
     public TextView lbl_time;
     HorizontalScrollView scr_board;
     RecyclerView board;
@@ -35,12 +37,10 @@ public class FragmentGame extends Fragment {
 
     public FragmentGame(){}
 
-    public static FragmentGame getInstance(int mines, int cols, int rows){
+    public static FragmentGame getInstance(int type, int mines, int cols, int rows){
         FragmentGame frag = new FragmentGame();
         frag.controller = new BoardController(frag);
-        frag.controller.setCols(cols);
-        frag.controller.setRows(rows);
-        frag.controller.setMines(mines);
+        frag.controller.initiateBoard(type, mines, cols, rows);
         frag.controller.startBoard();
         return frag;
     }
@@ -77,6 +77,9 @@ public class FragmentGame extends Fragment {
 
     public void defineElements(View rootview){
         lbl_mines = (TextView) rootview.findViewById(R.id.lbl_mines);
+        lbl_grid = (TextView) rootview.findViewById(R.id.lbl_grid);
+        lbl_grid.setText(controller.getType() < 0 ? controller.getCols() + "x" + controller.getRows() :
+                getString(controller.getType() == 0 ? R.string.easy : controller.getType() == 1 ? R.string.medium : R.string.hard));
         lbl_time = (TextView) rootview.findViewById(R.id.lbl_time);
         updateTopBar();
         scr_board = (HorizontalScrollView) rootview.findViewById(R.id.scr_board);
@@ -187,6 +190,8 @@ public class FragmentGame extends Fragment {
                             openGameOver();
                         else if (controller.verifyGameCompleted())
                             ((ActivityGame)getActivity()).openDialogCompleted();
+                        else if (!controller.isGameOver())
+                            SoundManager.playClick(getActivity());
                     }
                 });
                 ih.lay_item.setOnLongClickListener(new View.OnLongClickListener() {
@@ -194,6 +199,8 @@ public class FragmentGame extends Fragment {
                     public boolean onLongClick(View v) {
                         controller.markCell(position);
                         updateTopBar();
+                        if (!controller.isGameOver())
+                            SoundManager.playClick2(getActivity());
                         return true;
                     }
                 });
@@ -203,11 +210,20 @@ public class FragmentGame extends Fragment {
                 final Cell c = controller.getCells().get(position);
                 //cast the item holder
                 final ItemCellMarkedHolder ih = (ItemCellMarkedHolder) holder;
+                ih.lay_item.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (!controller.isGameOver())
+                            SoundManager.playClick(getActivity());
+                    }
+                });
                 ih.lay_item.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
                         controller.markCell(position);
                         updateTopBar();
+                        if (!controller.isGameOver())
+                            SoundManager.playClick2(getActivity());
                         return true;
                     }
                 });
@@ -230,6 +246,8 @@ public class FragmentGame extends Fragment {
                                 openGameOver();
                             else if (controller.verifyGameCompleted())
                                 ((ActivityGame)getActivity()).openDialogCompleted();
+                            else if (!controller.isGameOver())
+                                SoundManager.playClick(getActivity());
                             return true;
                         }
                     });

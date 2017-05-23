@@ -10,6 +10,7 @@ public class Globals {
 
     public final static String MAIN_FRAGMENT = "MainFragment";
     public final static String MAIN_POS = "MainPos";
+    public final static String MAIN_TYPE = "MainType";
     public final static String MAIN_COLS = "MainCols";
     public final static String MAIN_ROWS = "MainRows";
     public final static String MAIN_MINES = "MainMines";
