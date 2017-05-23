@@ -19,6 +19,7 @@ public class BoardController implements Parcelable {
     FragmentGame view;
 
     ArrayList<Cell> cells = new ArrayList<>();
+    int type = -1;
     int cols = 0;
     int rows = 0;
     int mines = 0;
@@ -32,6 +33,12 @@ public class BoardController implements Parcelable {
     }
     public void setView(FragmentGame view){
         this.view = view;
+    }
+    public void initiateBoard (int type, int mines, int cols, int rows){
+        this.type = type;
+        this.mines = mines;
+        this.cols = cols;
+        this.rows = rows;
     }
 
     public void startBoard(){
@@ -176,23 +183,17 @@ public class BoardController implements Parcelable {
         return cells;
     }
 
+    public int getType() {
+        return type;
+    }
     public int getCols() {
         return cols;
-    }
-    public void setCols(int cols) {
-        this.cols = cols;
     }
     public int getRows() {
         return rows;
     }
-    public void setRows(int rows) {
-        this.rows = rows;
-    }
     public int getMines() {
         return mines;
-    }
-    public void setMines(int mines) {
-        this.mines = mines;
     }
     public Calendar getIni_date() {
         return ini_date;
@@ -204,6 +205,7 @@ public class BoardController implements Parcelable {
     // Parcelling part
     public BoardController(Parcel in){
         cells = in.readArrayList(Cell.class.getClassLoader());
+        type = in.readInt();
         cols = in.readInt();
         rows = in.readInt();
         mines = in.readInt();
@@ -218,6 +220,7 @@ public class BoardController implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeList(cells);
+        dest.writeInt(type);
         dest.writeInt(cols);
         dest.writeInt(rows);
         dest.writeInt(mines);

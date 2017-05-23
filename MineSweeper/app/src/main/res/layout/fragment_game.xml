@@ -33,6 +33,13 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/lbl_grid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="0x0"
+            android:textColor="?colorText"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

@@ -64,7 +64,7 @@
                         android:textColor="?colorBackground"
                         android:inputType="number"
                         android:gravity="center"
-                        android:text="8"/>
+                        android:text="6"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -103,7 +103,7 @@
                         android:textColor="?colorBackground"
                         android:inputType="number"
                         android:gravity="center"
-                        android:text="6"/>
+                        android:text="8"/>
 
                 </LinearLayout>
             </LinearLayout>
