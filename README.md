@@ -30,3 +30,5 @@ Please feel free to grab any code from here, this was just an experiment and it 
 If you got questions please send an email to the developer in the playstore website https://play.google.com/store/apps/dev?id=5844133407192700083
 
 Cheers!
+
+7:18pm (next day) -> Sound Manger added. everything have sound now
