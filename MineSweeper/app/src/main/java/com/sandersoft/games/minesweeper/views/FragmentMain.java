@@ -591,11 +591,12 @@ public class FragmentMain extends Fragment {
             {
                 try {
                     interstitialAd = new InterstitialAd(getActivity());
-                    interstitialAd.setAdUnitId("ca-app-pub-5066758545463777/8399196643");
+                    //This id is not included, here you cn put the admob id of the ad
+                    interstitialAd.setAdUnitId("...");
 
                     // Create ad request.
                     AdRequest adRequest = new AdRequest.Builder()
-                            //.addTestDevice("1B3FD01EDB6D8258FA8A938E6C654D33")
+                            //.addTestDevice("Place the Test Device ID here")
                             .build();
 
                     // Begin loading your interstitial.
