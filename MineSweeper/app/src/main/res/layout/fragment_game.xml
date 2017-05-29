@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="?colorBackground"
+    android:id="@+id/lay_game_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_Background"
     android:animateLayoutChanges="true">
 
     <RelativeLayout
@@ -18,18 +20,21 @@
             >
 
             <TextView
+                android:id="@+id/lbl_mines_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_marginLeft="5dp"
                 android:text="@string/mines"
-                android:textColor="?colorText"/>
+                android:textColor="@color/color_Text"
+                />
             <TextView
                 android:id="@+id/lbl_mines"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"
-                android:textColor="?colorGameOver"/>
+                android:textColor="@color/color_GameOver"
+                />
 
         </LinearLayout>
 
@@ -39,7 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="0x0"
-            android:textColor="?colorText"/>
+            android:textColor="@color/color_Text"
+            />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -54,14 +60,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"
-                android:textColor="?colorAccent"/>
+                android:textColor="@color/color_Accent"/>
             <TextView
+                android:id="@+id/lbl_time_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_marginLeft="5dp"
                 android:text="@string/time"
-                android:textColor="?colorText"/>
+                android:textColor="@color/color_Text"
+                />
 
         </LinearLayout>
 
@@ -88,5 +96,29 @@
 
         </HorizontalScrollView>
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lay_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="#55000000"
+        android:visibility="gone">
+
+
+        <ViewFlipper
+            android:id="@+id/sld_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/layout_game_menu" />
+            <include layout="@layout/layout_game_settings" />
+            <include layout="@layout/layout_google" />
+            <include layout="@layout/layout_game_completed" />
+            <include layout="@layout/layout_game_over" />
+        </ViewFlipper>
+
+    </LinearLayout>
 
 </RelativeLayout>

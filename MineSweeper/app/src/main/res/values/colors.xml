@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="color_Primary">#333344</color>
+    <color name="color_PrimaryDisabled">#222222</color>
     <color name="color_PrimaryDark">#000000</color>
     <color name="color_Accent">#FFEB3B</color>
     <color name="color_Text">#FFFFFF</color>
@@ -9,6 +10,7 @@
     <color name="color_GameOver">#FF0000</color>
 
     <color name="color_LPrimary">#CCCCEE</color>
+    <color name="color_LPrimaryDisabled">#AAAAAA</color>
     <color name="color_LPrimaryDark">#AAAAAA</color>
     <color name="color_LAccent">#5555AA</color>
     <color name="color_LText">#000000</color>

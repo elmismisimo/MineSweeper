@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Busca Mines</string>
+    <string name="app_name_by">per SanderSoft</string>
+
+    <string name="cancel">Cancel·la</string>
+
+    <string name="play">Jugar</string>
+    <string name="easy">Fàcil 6x6</string>
+    <string name="medium">Medi 10x10</string>
+    <string name="hard">Dificil 15x27</string>
+    <string name="custom">Personalizat</string>
+    <string name="custom_desc">Posa les columnes, línies i mines</string>
+    <string name="cols">Columnes</string>
+    <string name="rows">Renglones</string>
+
+    <string name="google_play">Google Play</string>
+    <string name="google_play_desc">Conectar a Google Play Games</string>
+    <string name="connected">En línia</string>
+    <string name="disconnected">Desconnectat</string>
+    <string name="leaderboards">Taules de Classificació</string>
+    <string name="achievements">Assoliments</string>
+
+    <string name="mines">Mines</string>
+    <string name="time">Temps</string>
+    <string name="game_over">Mina Detonada</string>
+
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
+    <string name="sound">So</string>
+    <string name="light">Canviar a Tema Fosc</string>
+    <string name="dark">Camviar a Tema Clar</string>
+    <string name="restart">Reinicia</string>
+    <string name="quit">Sortir</string>
+    <string name="settings">Configuració</string>
+
+    <string name="congrats">¡Felicitats!</string>
+    <string name="completed">Vas completar el tauler XXX en YYY</string>
+    <string name="new_game">Nou Joc</string>
+
+    <string name="about">Creat i desenvolupat per</string>
+    <string name="version">Versió:</string>
+
+    <string name="menu_rate">Puntua\'ns</string>
+    <string name="menu_support">Donar-nos Suport</string>
+    <string name="support_desc">Sandersoft és un Estudi de Desenvolupament Independent on creiem en opcions gratuïtes per compartir amb la resta del món, però també ens agrada molt menjar!\nPero no et bombardejarem amb publicitat molesta i inoportuna.\nÉs la teva decisió decidir si ens dones suport o no. No jutjarem.\nSi vols donar-nos suport, pressiona el botó DONAR SUPORT (quant estigui habilitat) i es desplegarà un anunci, dóna-li clic i estarem molt, molt agraïts!\n¡Moltas Gràcies!</string>
+    <string name="support_btn">DONAR SUPORT</string>
+
+   <string name="tutorial_t">Com Jugar</string>
+    <string name="tutorial_1">Busca Mines és un joc on ha de trobar les mines ocultes en una quadrícula.\nFeu clic a una cel·la per obrir-la i revelar el seu contingut.</string>
+    <string name="tutorial_2_t">Obrir Cel·les</string>
+    <string name="tutorial_2">La cel·la oberta conté una mina o un nombre.\nSi s\'obre una cel·la amb una mina el joc s\'acaba.\nSi la cel·la conté un nombre, quest nombre indica quantes mines es troben a les 8 cel al voltant d\'ella.\nSi no hi ha mines al voltant d\'ella, es mostra cap nombre.</string>
+    <string name="tutorial_3_t">Marcat</string>
+    <string name="tutorial_3">Quan es detecta que a sota d\'una cel·la hi ha una mina, pot marcar-la amb pulsació llarga en la cel·la.\nLes cel·les marcades no es poden obrir.\nPot desmarcar les cel·les amb una pressió llarga novament</string>
+    <string name="tutorial_4_t">Condicions de Joc Acabat</string>
+    <string name="tutorial_4">El joc acaba quan es trepitja sobre una mina o la totalitat de les cel·les que no contenen mines s\'obren.\nRecuerde que Busca Mines és un joc de lògica, per tant la força bruta només l\'ajudarà en rares ocasions.\nBona sort!</string>
+    <string name="tutorial_next">Següent</string>
+    <string name="tutorial_skip">Saltar-se el tutorial</string>
+    <string name="tutorial_play">A Jugar!</string>
+</resources>

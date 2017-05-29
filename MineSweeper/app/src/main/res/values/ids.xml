@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- For obvious reasuns this ids are not included -->
+    <string translatable="false" name="app_id">...</string>
+    <string translatable="false" name="score_easy">...</string>
+    <string translatable="false" name="score_medium">...</string>
+    <string translatable="false" name="score_hard">...</string>
+
+    <string translatable="false" name="achievement_easy_mode">...</string>
+    <string translatable="false" name="achievement_easy_winner">...</string>
+    <string translatable="false" name="achievement_easy_master">...</string>
+    <string translatable="false" name="achievement_easy_lord">...</string>
+    <string translatable="false" name="achievement_medium_mode">...</string>
+    <string translatable="false" name="achievement_medium_winner">...</string>
+    <string translatable="false" name="achievement_medium_master">...</string>
+    <string translatable="false" name="achievement_medium_lord">...</string>
+    <string translatable="false" name="achievement_hard_mode">...</string>
+    <string translatable="false" name="achievement_hard_winner">...</string>
+    <string translatable="false" name="achievement_hard_master">...</string>
+    <string translatable="false" name="achievement_hard_lord">...</string>
+    <string translatable="false" name="achievement_easy_fast">...</string>
+    <string translatable="false" name="achievement_easy_faster">...</string>
+    <string translatable="false" name="achievement_easy_impossible">...</string>
+    <string translatable="false" name="achievement_medium_fast">...</string>
+    <string translatable="false" name="achievement_medium_faster">...</string>
+    <string translatable="false" name="achievement_medium_impossible">...</string>
+    <string translatable="false" name="achievement_hard_fast">...</string>
+    <string translatable="false" name="achievement_hard_faster">...</string>
+    <string translatable="false" name="achievement_hard_impossible">...</string>
+    <string translatable="false" name="achievement_winner">...</string>
+    <string translatable="false" name="achievement_master">...</string>
+    <string translatable="false" name="achievement_lord">...</string>
+    <string translatable="false" name="achievement_suicide_bomber">...</string>
+    <string translatable="false" name="achievement_remarkable">...</string>
+    <string translatable="false" name="achievement_challenger">...</string>
+    <string translatable="false" name="achievement_persistent">...</string>
+    <string translatable="false" name="achievement_quitter">...</string>
+    <string translatable="false" name="achievement_whos_that_guy">...</string>
+    <string translatable="false" name="achievement_oh_my_eyes">...</string>
+
+</resources>

@@ -2,14 +2,23 @@
     <string name="app_name">Mine Sweeper</string>
     <string name="app_name_by">by SanderSoft</string>
 
+    <string name="cancel">Cancel</string>
+
     <string name="play">Play</string>
     <string name="easy">Easy 6x6</string>
     <string name="medium">Medium 10x10</string>
-    <string name="hard">Hard 20x20</string>
+    <string name="hard">Hard 15x27</string>
     <string name="custom">Custom</string>
     <string name="custom_desc">Provide the columns, rows and mines</string>
     <string name="cols">Columns</string>
     <string name="rows">Rows</string>
+
+    <string name="google_play">Google Play</string>
+    <string name="google_play_desc">Connect to Google Play Games</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="leaderboards">Leaderboards</string>
+    <string name="achievements">Achievements</string>
 
     <string name="mines">Mines</string>
     <string name="time">Time</string>
@@ -21,9 +30,7 @@
     <string name="light">Switch to Dark Theme</string>
     <string name="dark">Switch to Light Theme</string>
     <string name="restart">Restart</string>
-    <string name="restart_confirm">Are you sure you want to restart? The mine positions will change</string>
     <string name="quit">Quit</string>
-    <string name="quit_confirm">Are you sure you want to quit?</string>
     <string name="settings">Settings</string>
 
     <string name="congrats">Congratulations!</string>
@@ -32,5 +39,22 @@
 
     <string name="about">Created and Developed by</string>
     <string name="version">Version:</string>
+
+    <string name="menu_rate">Rate Us</string>
+    <string name="menu_support">Support Us</string>
+    <string name="support_desc">SanderSoft is an Indie Developer Studio that believe in free options to share with the rest of the world, nonetheless we like to eat also!\nBut we wont bomb you with unsolicited and annoying ads.\nIts up to you to decide to support us or not. We wont judge.\nIf you do, press the button SUPPORT (as soon as the button is enabled) and an ad popup will show up, click it and we will be very, very thankful!\nThank You!</string>
+    <string name="support_btn">SUPPORT</string>
+
+    <string name="tutorial_t">How to Play</string>
+    <string name="tutorial_1">Mine Sweeper is a game where you have to find the mines hidden in a grid.\nClick on a cell to open it and reveal its content.</string>
+    <string name="tutorial_2_t">Opening Cells</string>
+    <string name="tutorial_2">The opened cell contains a mine or a number.\nIf you open a cell with a mine the game is over.\nIf the cell contains a number, that number indicates how many mines are located on the 8 cells around it.\nIf there are no mines around it, no number is displayed.</string>
+    <string name="tutorial_3_t">Marking</string>
+    <string name="tutorial_3">When you detect that under a cell a mine is located, you can mark it with long press on the cell.\nThe marked cells cannot be opened.\nYou can un mark cells long pressing them again</string>
+    <string name="tutorial_4_t">Game Over Conditions</string>
+    <string name="tutorial_4">The game finishes when you step on a mine or all of the cells that do not contain mines are opened.\nRemember that Mine Sweeper is a logical game, thus brute force will only help you in rare occasions.\nGood luck!</string>
+    <string name="tutorial_next">Next</string>
+    <string name="tutorial_skip">Skip Tutorial</string>
+    <string name="tutorial_play">Lets Play!</string>
 
 </resources>

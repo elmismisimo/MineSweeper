@@ -9,14 +9,6 @@
         <item name="colorControlHighlight">@color/color_Primary</item>
         <item name="android:windowBackground">@color/color_Background</item>
         <item name="android:navigationBarColor">@color/color_Background</item>
-
-        <item name="mcolorPrimary">@color/color_Primary</item>
-        <item name="mcolorPrimaryDark">@color/color_PrimaryDark</item>
-        <item name="mcolorAccent">@color/color_Accent</item>
-        <item name="colorText">@color/color_Text</item>
-        <item name="colorBackground">@color/color_Background</item>
-        <item name="colorMarked">@color/color_Marked</item>
-        <item name="colorGameOver">@color/color_GameOver</item>
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -31,14 +23,6 @@
         <item name="colorControlHighlight">@color/color_LPrimary</item>
         <item name="android:windowBackground">@color/color_LBackground</item>
         <item name="android:navigationBarColor">@color/color_LBackground</item>
-
-        <item name="mcolorPrimary">@color/color_LPrimary</item>
-        <item name="mcolorPrimaryDark">@color/color_LPrimaryDark</item>
-        <item name="mcolorAccent">@color/color_LAccent</item>
-        <item name="colorText">@color/color_LText</item>
-        <item name="colorBackground">@color/color_LBackground</item>
-        <item name="colorMarked">@color/color_LMarked</item>
-        <item name="colorGameOver">@color/color_GameOver</item>
     </style>
     <style name="AppTheme.Light.NoActionBar">
         <item name="windowActionBar">false</item>

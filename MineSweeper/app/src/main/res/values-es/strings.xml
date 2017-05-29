@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Busca Minas</string>
+    <string name="app_name_by">por SanderSoft</string>
+
+    <string name="cancel">Cancelar</string>
+
+    <string name="play">Jugar</string>
+    <string name="easy">Facil 6x6</string>
+    <string name="medium">Medio 10x10</string>
+    <string name="hard">Dificil 15x27</string>
+    <string name="custom">Personalizado</string>
+    <string name="custom_desc">Pon las columnas, renglones y minas</string>
+    <string name="cols">Columnas</string>
+    <string name="rows">Renglones</string>
+
+    <string name="google_play">Google Play</string>
+    <string name="google_play_desc">Conectar a Google Play Juegos</string>
+    <string name="connected">Conectado</string>
+    <string name="disconnected">Desconectado</string>
+    <string name="leaderboards">Tablas de clasificación</string>
+    <string name="achievements">Logros</string>
+
+    <string name="mines">Minas</string>
+    <string name="time">Tiempo</string>
+    <string name="game_over">Mina Detonada</string>
+
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
+    <string name="sound">Sonido</string>
+    <string name="light">Cambiar a Tema Oscuro</string>
+    <string name="dark">cambiar a Tema Claro</string>
+    <string name="restart">Reiniciar</string>
+    <string name="quit">Salir</string>
+    <string name="settings">Ajustes</string>
+
+    <string name="congrats">¡Felicidades!</string>
+    <string name="completed">Completaste el tablero XXX en YYY</string>
+    <string name="new_game">Nuevo Juego</string>
+
+    <string name="about">Creado y Desarrollado por</string>
+    <string name="version">Versión:</string>
+
+    <string name="menu_rate">Calificanos</string>
+    <string name="menu_support">Apoyanos</string>
+    <string name="support_desc">Sandersoft es un Estudio de Desarrollo Independiente donde creemos en opciones gratuitas para compartir con el resto del mundo, ¡sin embargo también nos gusta mucho comer!\nPero no te bombardearemos con publicidad molesta e inoportuna.\nEs tu decisión decidir si nos apoyas o no. No juzgaremos.\nSi deseas apoyarnos, presiona el botón APOYAR (en cuanto se habilite) y se desplegará un anuncio, dale click y ¡estaremos muy, muy agradecidos!\n¡Muchas Gracias!</string>
+    <string name="support_btn">APOYAR</string>
+
+    <string name="tutorial_t">Cómo Jugar</string>
+    <string name="tutorial_1">Busca Minas es un juego donde tienes que encontrar las minas ocultas en una cuadrícula.\nHaga clic en una celda para abrirla y revelar su contenido.</string>
+    <string name="tutorial_2_t">Abrir celdas</string>
+    <string name="tutorial_2">La celda abierta contiene una mina o un número.\nSi abre una celda que tiene una mina el juego se acaba.\nSi la celda contiene un número, ese número indica cuántas minas se encuentran en las 8 celdas alrededor de ella.\nSi no hay minas a su alrededor, no se muestra ningún número.</string>
+    <string name="tutorial_3_t">Marcado</string>
+    <string name="tutorial_3">Cuando detecte que debajo de una celda se encuentra una mina, puede marcarla con una presión larga en la celda.\nLas celdas marcadas no se pueden abrir.\nPuede desmarcar las celdas con una presión larga nuevamente</string>
+    <string name="tutorial_4_t">Condiciones de Juego Terminado</string>
+    <string name="tutorial_4">El juego termina cuando se pisa una mina o se abren todas las celdas que no contienen minas.\nRecuerde que Busca Minas es un juego de lógica, por lo que la fuerza bruta solo le ayudará en raras ocasiones.\n¡Buena suerte!</string>
+    <string name="tutorial_next">Siguiente</string>
+    <string name="tutorial_skip">Saltar Tutorial</string>
+    <string name="tutorial_play">¡A Jugar!</string>
+</resources>
