@@ -15,6 +15,17 @@ public class Globals {
     public final static String MAIN_ROWS = "MainRows";
     public final static String MAIN_MINES = "MainMines";
 
+    public final static String MAIN_MEDIUM = "MainMedium";
+    public final static String MAIN_HARD = "MainHard";
+
+    // Request code to use when launching the resolution activity
+    public static final int REQUEST_RESOLVE_ERROR = 1001;
+    public static final int RESULT_APP_MISCONFIGURED = 10004;
+    // Unique tag for the error dialog fragment
+    public static final String DIALOG_ERROR = "dialog_error";
+    public static final String GAMES_CONNECT = "GamesConnect";
+
+    public final static String GAME_TUTORIAL = "GameTutorial";
     public final static String GAME_FRAGMENT = "MainFragment";
     public final static String GAME_CONTROLLER = "MainController";
     public final static String GAME_SCROLL = "MainScroll";

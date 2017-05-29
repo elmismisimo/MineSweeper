@@ -2,25 +2,25 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_enabled="false">
         <shape>
-            <solid android:color="#111111"/>
+            <solid android:color="@color/color_PrimaryDisabled"/>
             <corners android:radius="5dip"/>
         </shape>
     </item>
     <item android:state_focused="true">
         <shape>
-            <solid android:color="?colorGameOver"/>
+            <solid android:color="@color/color_GameOver"/>
             <corners android:radius="5dip"/>
         </shape>
     </item>
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="?colorGameOver"/>
+            <solid android:color="@color/color_GameOver"/>
             <corners android:radius="5dip"/>
         </shape>
     </item>
     <item>
         <shape>
-            <solid android:color="?colorMarked"/>
+            <solid android:color="@color/color_Marked"/>
             <corners android:radius="5dip"/>
         </shape>
     </item>

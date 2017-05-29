@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/color_Accent"
+    android:color="@color/color_LAccent"
     >
     <item>
         <shape>
-            <solid android:color="@color/cell_selector"/>
+            <solid android:color="@color/cell_l_opened_selector"/>
             <corners android:radius="5dip"/>
         </shape>
     </item>
